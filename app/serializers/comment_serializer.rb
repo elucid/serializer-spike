@@ -1,7 +1,7 @@
 class CommentSerializer < ActiveModel::Serializer
   attributes :id, :text, :version
 
-  belongs_to :post
+  has_one :post, embed: :ids, include: true
 
   def version
     '0.10.0'
