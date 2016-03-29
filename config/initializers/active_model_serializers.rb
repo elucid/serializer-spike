@@ -15,6 +15,19 @@ module ActionController
           options[:adapter] = :json
         end
 
+        if request.path.match(%r<api/v2>)
+          options[:include] = params[:include]
+
+          if params[:fields].present?
+            params[:fields].each { |k, v| params[:fields][k] = v.split(",") }
+            options[:fields] = params[:fields]
+          end
+
+          options[:sort] = params[:sort]
+          options[:page] = params[:page]
+          options[:filter] = params[:filter]
+        end
+
         serializable_resource = get_serializer(resource, options)
         super(serializable_resource, options)
       end
