@@ -9,7 +9,7 @@ module ActionController
           options[:serialization_context] = ActiveModelSerializers::SerializationContext.new(request)
         end
 
-        if options[:prefixes].find { |p| p.match(/v1/) }
+        if request.path.match(%r<api/v1>)
           serializer = "#{resource.class}Version8Serializer".safe_constantize
           options[:serializer] = serializer
           options[:adapter] = :json

@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  namespace :api do
-    [:v1, :v2].each do |version|
-      namespace version do
-        resources :authors
-        resources :posts
-        resources :comments
-      end
+  [:v1, :v2].each do |version|
+    scope "api/#{version}", module: :api do
+      resources :authors
+      resources :posts
+      resources :comments
     end
   end
 end
