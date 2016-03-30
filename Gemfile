@@ -25,6 +25,7 @@ group :development do
   gem 'spring'
 end
 
+gem 'active_model_serializers_with_namespacing', git: 'git@github.com:PrecisionNutrition/active_model_serializers.git', branch: '0-8-with-namespacing'
 gem 'active_model_serializers', '0.10.0.rc4'
 
 gem 'responders'

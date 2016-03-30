@@ -9,13 +9,17 @@ module ActionController
           options[:serialization_context] = ActiveModelSerializers::SerializationContext.new(request)
         end
 
-        if request.path.match(%r<api/v1>)
-          serializer = "#{resource.class}Version8Serializer".safe_constantize
-          options[:serializer] = serializer
-          options[:adapter] = :json
-        end
+        case request.path
+        when %r<api/v1>
+          # serializer = "#{resource.class}Version8Serializer".safe_constantize
+          json = ActiveModel::SerializerVersion8.build_json(self, resource, options)
 
-        if request.path.match(%r<api/v2>)
+          if json
+            super(json, options)
+          else
+            super(resource, options)
+          end
+        when %r<api/v2>
           options[:include] = params[:include]
 
           if params[:fields].present?
@@ -26,10 +30,10 @@ module ActionController
           options[:sort] = params[:sort]
           options[:page] = params[:page]
           options[:filter] = params[:filter]
-        end
 
-        serializable_resource = get_serializer(resource, options)
-        super(serializable_resource, options)
+          serializable_resource = get_serializer(resource, options)
+          super(serializable_resource, options)
+        end
       end
     end
 

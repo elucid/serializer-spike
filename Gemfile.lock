@@ -1,3 +1,11 @@
+GIT
+  remote: git@github.com:PrecisionNutrition/active_model_serializers.git
+  revision: cb1a9a27f209c57e58b305c2b64f7205516864db
+  branch: 0-8-with-namespacing
+  specs:
+    active_model_serializers_with_namespacing (0.8.3)
+      activemodel (>= 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -153,6 +161,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (= 0.10.0.rc4)
+  active_model_serializers_with_namespacing!
   byebug
   pg (~> 0.15)
   pry
